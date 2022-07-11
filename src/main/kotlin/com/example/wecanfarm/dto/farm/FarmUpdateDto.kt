@@ -1,6 +1,6 @@
 package com.example.wecanfarm.dto.farm
 
-data class FarmCreateDto(
+data class FarmUpdateDto(
     val name: String,
     val mainPhone: String,
     val altPhone: String?,
