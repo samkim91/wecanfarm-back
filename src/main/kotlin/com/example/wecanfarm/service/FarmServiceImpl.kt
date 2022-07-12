@@ -1,6 +1,11 @@
 package com.example.wecanfarm.service
 
-import com.example.wecanfarm.entity.Farm
+import com.example.wecanfarm.converter.farm.toEntity
+import com.example.wecanfarm.converter.farm.toReadDto
+import com.example.wecanfarm.converter.farm.updateEntity
+import com.example.wecanfarm.dto.farm.FarmCreateDto
+import com.example.wecanfarm.dto.farm.FarmReadDto
+import com.example.wecanfarm.dto.farm.FarmUpdateDto
 import com.example.wecanfarm.repository.FarmRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -13,38 +18,24 @@ class FarmServiceImpl @Autowired constructor(
     val farmRepository: FarmRepository
 ) : BaseService(), FarmService {
 
-    override fun findById(id: Long): Farm {
+    override fun findById(id: Long): FarmReadDto {
         return farmRepository.findById(id)
-            .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "해당 농장이 존재하지 않습니다.") }
+            .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "해당 농장이 존재하지 않습니다.") }.toReadDto()
     }
 
     @Transactional
-    override fun insertFarm(farm: Farm): Farm {
-        return farmRepository.save(farm)
+    override fun insertFarm(farmCreateDto: FarmCreateDto): FarmReadDto {
+        return farmRepository.save(farmCreateDto.toEntity()).toReadDto()
     }
 
     @Transactional
-    override fun updateFarm(id: Long, updatingFarm: Farm): Farm {
+    override fun updateFarm(id: Long, farmUpdateDto: FarmUpdateDto): FarmReadDto {
         val farm = farmRepository.findById(id)
             .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "해당 농장이 존재하지 않습니다.") }
 
-        farm.name = updatingFarm.name
-        farm.mainPhone = updatingFarm.mainPhone
-        farm.altPhone = updatingFarm.altPhone
-        farm.address = updatingFarm.address
-        farm.detailAddress = updatingFarm.detailAddress
-        farm.email = updatingFarm.email
-        farm.webUrl = updatingFarm.webUrl
-        farm.mainSnsUrl = updatingFarm.mainSnsUrl
-        farm.altSnsUrl = updatingFarm.altSnsUrl
-        farm.ownerNotes = updatingFarm.ownerNotes
-        farm.hashTags = updatingFarm.hashTags
-        farm.isReservationCancelable = updatingFarm.isReservationCancelable
-        farm.refundPolicy = updatingFarm.refundPolicy
-        farm.adminNotes = updatingFarm.adminNotes
-        farm.isActive = updatingFarm.isActive
+        farm.updateEntity(farmUpdateDto = farmUpdateDto)
 
-        return farm
+        return farm.toReadDto()
     }
 
 

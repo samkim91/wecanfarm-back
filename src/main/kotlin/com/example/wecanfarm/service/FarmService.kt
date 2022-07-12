@@ -1,11 +1,13 @@
 package com.example.wecanfarm.service
 
-import com.example.wecanfarm.entity.Farm
+import com.example.wecanfarm.dto.farm.FarmCreateDto
+import com.example.wecanfarm.dto.farm.FarmReadDto
+import com.example.wecanfarm.dto.farm.FarmUpdateDto
 
 interface FarmService {
 
-    fun findById(id: Long): Farm
-    fun insertFarm(farm: Farm): Farm
+    fun findById(id: Long): FarmReadDto
+    fun insertFarm(farmCreateDto: FarmCreateDto): FarmReadDto
 
-    fun updateFarm(id: Long, farm: Farm): Farm
+    fun updateFarm(id: Long, farmUpdateDto: FarmUpdateDto): FarmReadDto
 }
