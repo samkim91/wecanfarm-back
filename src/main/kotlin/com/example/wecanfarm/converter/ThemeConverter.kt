@@ -1,4 +1,4 @@
-package com.example.wecanfarm.converter.farm
+package com.example.wecanfarm.converter
 
 import com.example.wecanfarm.dto.theme.ThemeCreateDto
 import com.example.wecanfarm.dto.theme.ThemeReadDto
@@ -10,14 +10,18 @@ fun Theme.toReadDto() =
     ThemeReadDto(
         id = id ?: 0,
         name = name,
+        code = code,
     )
 
 fun Theme.updateEntity(themeUpdateDto: ThemeUpdateDto) {
-    this.name = themeUpdateDto.name
+    name = themeUpdateDto.name
+    code = themeUpdateDto.code
 }
 
 fun ThemeCreateDto.toEntity() =
     Theme(
-        name = name
+        name = name,
+        code = code,
+        farms = mutableListOf(),
     )
 

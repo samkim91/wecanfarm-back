@@ -5,6 +5,8 @@ import com.example.wecanfarm.dto.farm.FarmReadDto
 import com.example.wecanfarm.dto.farm.FarmUpdateDto
 import com.example.wecanfarm.service.FarmService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -16,19 +18,24 @@ class FarmController @Autowired constructor(
 ) : BaseController() {
 
 
+    @GetMapping
+    fun getList(search: String?, pageable: Pageable): ResponseEntity<Page<FarmReadDto>> {
+        return ResponseEntity.ok(farmService.getList(search, pageable))
+    }
+
     @GetMapping("/{id}")
     fun getFarm(@PathVariable id: Long): ResponseEntity<FarmReadDto> {
-        return ResponseEntity.ok(farmService.findById(id))
+        return ResponseEntity.ok(farmService.get(id))
     }
 
     @PostMapping
     fun createFarm(@Valid farmCreateDto: FarmCreateDto): ResponseEntity<FarmReadDto> {
-        return ResponseEntity.ok(farmService.createFarm(farmCreateDto))
+        return ResponseEntity.ok(farmService.create(farmCreateDto))
     }
 
     @PostMapping("{id}")
     fun updateFarm(@PathVariable id: Long, @Valid farmUpdateDto: FarmUpdateDto): ResponseEntity<FarmReadDto> {
-        return ResponseEntity.ok(farmService.updateFarm(id, farmUpdateDto))
+        return ResponseEntity.ok(farmService.update(id, farmUpdateDto))
     }
 }
 

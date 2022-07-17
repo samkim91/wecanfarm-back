@@ -1,5 +1,6 @@
 package com.example.wecanfarm.converter.farm
 
+import com.example.wecanfarm.converter.toReadDto
 import com.example.wecanfarm.dto.farm.FarmCreateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto
 import com.example.wecanfarm.dto.farm.FarmUpdateDto

@@ -9,14 +9,17 @@ import javax.persistence.*
 @DynamicUpdate
 @Table(name = "themes")
 class Theme(
+    @Column(nullable = false, length = 64, unique = true)
+    var name: String,
+
+    @Column(nullable = false, length = 64, unique = true)
+    var code: String,
+
+    @OneToMany(mappedBy = "theme")
+    var farms: MutableList<FarmTheme>,
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     var id: Long? = null,
-
-    @Column(nullable = false, length = 64)
-    var name: String,
-
-    @OneToMany(mappedBy = "theme")
-    var farms: MutableList<FarmTheme> = mutableListOf(),
 )

@@ -5,6 +5,8 @@ import com.example.wecanfarm.dto.theme.ThemeReadDto
 import com.example.wecanfarm.dto.theme.ThemeUpdateDto
 import com.example.wecanfarm.service.ThemeService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -15,18 +17,26 @@ class ThemeController @Autowired constructor(
     private val themeService: ThemeService,
 ) : BaseController() {
 
+    @GetMapping
+    fun getList(
+        search: String?,
+        pageable: Pageable
+    ): ResponseEntity<Page<ThemeReadDto>> {
+        return ResponseEntity.ok(themeService.getList(search, pageable))
+    }
+
     @GetMapping("/{id}")
-    fun getTheme(@PathVariable id: Long): ResponseEntity<ThemeReadDto> {
-        return ResponseEntity.ok(themeService.findById(id))
+    fun get(@PathVariable id: Long): ResponseEntity<ThemeReadDto> {
+        return ResponseEntity.ok(themeService.get(id))
     }
 
     @PostMapping
-    fun createTheme(@Valid themeCreateDto: ThemeCreateDto): ResponseEntity<ThemeReadDto> {
-        return ResponseEntity.ok(themeService.createTheme(themeCreateDto))
+    fun create(@Valid themeCreateDto: ThemeCreateDto): ResponseEntity<ThemeReadDto> {
+        return ResponseEntity.ok(themeService.create(themeCreateDto))
     }
 
     @PutMapping("{id}")
-    fun updateTheme(@PathVariable id: Long, @Valid themeUpdateDto: ThemeUpdateDto): ResponseEntity<ThemeReadDto> {
-        return ResponseEntity.ok(themeService.updateTheme(id, themeUpdateDto))
+    fun update(@PathVariable id: Long, @Valid themeUpdateDto: ThemeUpdateDto): ResponseEntity<ThemeReadDto> {
+        return ResponseEntity.ok(themeService.update(id, themeUpdateDto))
     }
 }
