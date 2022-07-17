@@ -7,7 +7,7 @@ import com.example.wecanfarm.dto.farm.FarmUpdateDto
 interface FarmService {
 
     fun findById(id: Long): FarmReadDto
-    fun insertFarm(farmCreateDto: FarmCreateDto): FarmReadDto
+    fun createFarm(farmCreateDto: FarmCreateDto): FarmReadDto
 
     fun updateFarm(id: Long, farmUpdateDto: FarmUpdateDto): FarmReadDto
 }

@@ -1,8 +1,10 @@
 package com.example.wecanfarm.dto.farm
 
+import com.example.wecanfarm.dto.theme.ThemeReadDto
+
 data class FarmReadDto(
     val name: String,
-    // TODO: 2022/07/03 theme 추가
+    val themes: List<ThemeReadDto?>,
     val mainPhone: String,
     val altPhone: String,
     val address: String,

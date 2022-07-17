@@ -8,12 +8,13 @@ import javax.persistence.*
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "Farms")
+@Table(name = "farms")
 class Farm(
     @Column(nullable = false, length = 50)
     var name: String,
 
-    // TODO: 2022/07/03 theme 추가
+    @OneToMany(mappedBy = "farm")
+    var themes: MutableList<FarmTheme> = mutableListOf(),
 
     @Column(nullable = false, length = 16)
     var mainPhone: String,

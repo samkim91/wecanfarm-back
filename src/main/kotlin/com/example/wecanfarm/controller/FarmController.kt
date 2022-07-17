@@ -2,8 +2,6 @@ package com.example.wecanfarm.controller
 
 import com.example.wecanfarm.dto.farm.FarmCreateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto
-import com.example.wecanfarm.converter.farm.toEntity
-import com.example.wecanfarm.converter.farm.toReadDto
 import com.example.wecanfarm.dto.farm.FarmUpdateDto
 import com.example.wecanfarm.service.FarmService
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,9 +21,9 @@ class FarmController @Autowired constructor(
         return ResponseEntity.ok(farmService.findById(id))
     }
 
-    @PostMapping()
+    @PostMapping
     fun createFarm(@Valid farmCreateDto: FarmCreateDto): ResponseEntity<FarmReadDto> {
-        return ResponseEntity.ok(farmService.insertFarm(farmCreateDto))
+        return ResponseEntity.ok(farmService.createFarm(farmCreateDto))
     }
 
     @PostMapping("{id}")

@@ -9,6 +9,9 @@ import com.example.wecanfarm.entity.Farm
 fun Farm.toReadDto() =
     FarmReadDto(
         name = name,
+        themes = themes.map { farmTheme ->
+            farmTheme.theme?.toReadDto()
+        },
         mainPhone = mainPhone,
         altPhone = altPhone ?: "",
         address = address,
