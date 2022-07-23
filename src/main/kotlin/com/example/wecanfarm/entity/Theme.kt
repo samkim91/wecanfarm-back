@@ -15,6 +15,9 @@ class Theme(
     @Column(nullable = false, length = 64, unique = true)
     var code: String,
 
+    @Column(nullable = false)
+    var priority: Int = 0,
+
     @OneToMany(mappedBy = "theme")
     var farms: MutableList<FarmTheme>,
 

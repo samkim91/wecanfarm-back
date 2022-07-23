@@ -11,11 +11,13 @@ fun Theme.toReadDto() =
         id = id ?: 0,
         name = name,
         code = code,
+        priority = priority,
     )
 
 fun Theme.updateEntity(themeUpdateDto: ThemeUpdateDto) {
     name = themeUpdateDto.name
     code = themeUpdateDto.code
+    priority = themeUpdateDto.priority
 }
 
 fun ThemeCreateDto.toEntity() =
@@ -23,5 +25,6 @@ fun ThemeCreateDto.toEntity() =
         name = name,
         code = code,
         farms = mutableListOf(),
+        priority = priority,
     )
 

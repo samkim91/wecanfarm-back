@@ -1,6 +1,5 @@
-package com.example.wecanfarm.converter.farm
+package com.example.wecanfarm.converter
 
-import com.example.wecanfarm.converter.toReadDto
 import com.example.wecanfarm.dto.farm.FarmCreateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto
 import com.example.wecanfarm.dto.farm.FarmUpdateDto
@@ -11,7 +10,7 @@ fun Farm.toReadDto() =
     FarmReadDto(
         name = name,
         themes = themes.map { farmTheme ->
-            farmTheme.theme?.toReadDto()
+            farmTheme.theme.toReadDto()
         },
         mainPhone = mainPhone,
         altPhone = altPhone ?: "",

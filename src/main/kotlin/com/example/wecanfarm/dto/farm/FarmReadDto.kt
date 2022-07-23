@@ -4,7 +4,7 @@ import com.example.wecanfarm.dto.theme.ThemeReadDto
 
 data class FarmReadDto(
     val name: String,
-    val themes: List<ThemeReadDto?>,
+    val themes: List<ThemeReadDto>,
     val mainPhone: String,
     val altPhone: String,
     val address: String,
