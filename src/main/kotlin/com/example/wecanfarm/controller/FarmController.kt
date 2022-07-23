@@ -1,8 +1,7 @@
 package com.example.wecanfarm.controller
 
-import com.example.wecanfarm.dto.farm.FarmCreateDto
+import com.example.wecanfarm.dto.farm.FarmCreateUpdateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto
-import com.example.wecanfarm.dto.farm.FarmUpdateDto
 import com.example.wecanfarm.service.FarmService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -29,13 +28,13 @@ class FarmController @Autowired constructor(
     }
 
     @PostMapping
-    fun createFarm(@Valid farmCreateDto: FarmCreateDto): ResponseEntity<FarmReadDto> {
-        return ResponseEntity.ok(farmService.create(farmCreateDto))
+    fun createFarm(@RequestBody @Valid farmCreateUpdateDto: FarmCreateUpdateDto): ResponseEntity<FarmReadDto> {
+        return ResponseEntity.ok(farmService.create(farmCreateUpdateDto))
     }
 
     @PostMapping("{id}")
-    fun updateFarm(@PathVariable id: Long, @Valid farmUpdateDto: FarmUpdateDto): ResponseEntity<FarmReadDto> {
-        return ResponseEntity.ok(farmService.update(id, farmUpdateDto))
+    fun updateFarm(@PathVariable id: Long, @RequestBody @Valid farmCreateUpdateDto: FarmCreateUpdateDto): ResponseEntity<FarmReadDto> {
+        return ResponseEntity.ok(farmService.update(id, farmCreateUpdateDto))
     }
 }
 

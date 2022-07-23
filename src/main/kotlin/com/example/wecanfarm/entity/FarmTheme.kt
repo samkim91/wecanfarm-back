@@ -10,7 +10,7 @@ class FarmTheme(
     var farm: Farm,
 
     @ManyToOne
-    @JoinColumn(name = "themes_id")
+    @JoinColumn(name = "theme_id")
     var theme: Theme,
 
     @Id

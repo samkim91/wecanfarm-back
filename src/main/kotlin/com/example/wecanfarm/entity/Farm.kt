@@ -12,9 +12,6 @@ class Farm(
     @Column(nullable = false, length = 50)
     var name: String,
 
-    @OneToMany(mappedBy = "farm")
-    var themes: MutableList<FarmTheme> = mutableListOf(),
-
     @Column(nullable = false, length = 16)
     var mainPhone: String,
 
@@ -56,6 +53,12 @@ class Farm(
     var adminNotes: String?,
 
     var isActive: Boolean,
+
+    @OneToMany(mappedBy = "farm")
+    var themes: MutableList<FarmTheme> = mutableListOf(),
+
+    @OneToMany(mappedBy = "farm")
+    var openingHours: MutableList<OpeningHour> = mutableListOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

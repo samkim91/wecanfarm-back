@@ -1,30 +1,29 @@
 package com.example.wecanfarm.converter
 
-import com.example.wecanfarm.dto.theme.ThemeCreateDto
+import com.example.wecanfarm.dto.theme.ThemeCreateUpdateDto
 import com.example.wecanfarm.dto.theme.ThemeReadDto
-import com.example.wecanfarm.dto.theme.ThemeUpdateDto
 import com.example.wecanfarm.entity.Theme
 
 
 fun Theme.toReadDto() =
     ThemeReadDto(
-        id = id ?: 0,
+        id = id!!,
         name = name,
         code = code,
         priority = priority,
     )
 
-fun Theme.updateEntity(themeUpdateDto: ThemeUpdateDto) {
-    name = themeUpdateDto.name
-    code = themeUpdateDto.code
-    priority = themeUpdateDto.priority
+fun Theme.updateEntity(themeCreateUpdateDto: ThemeCreateUpdateDto) {
+    name = themeCreateUpdateDto.name
+    code = themeCreateUpdateDto.code
+    priority = themeCreateUpdateDto.priority
 }
 
-fun ThemeCreateDto.toEntity() =
+fun ThemeCreateUpdateDto.toEntity() =
     Theme(
         name = name,
         code = code,
-        farms = mutableListOf(),
         priority = priority,
+        farms = mutableListOf(),
     )
 

@@ -1,10 +1,10 @@
 package com.example.wecanfarm.dto.farm
 
+import com.example.wecanfarm.dto.opening_hour.OpeningHourReadDto
 import com.example.wecanfarm.dto.theme.ThemeReadDto
 
 data class FarmReadDto(
     val name: String,
-    val themes: List<ThemeReadDto>,
     val mainPhone: String,
     val altPhone: String,
     val address: String,
@@ -20,5 +20,7 @@ data class FarmReadDto(
     val refundPolicy: String,
     val adminNotes: String,
     val isActive: Boolean,
+    val themes: List<ThemeReadDto>,
+    val openingHours: List<OpeningHourReadDto>,
     val id: Long,
 )

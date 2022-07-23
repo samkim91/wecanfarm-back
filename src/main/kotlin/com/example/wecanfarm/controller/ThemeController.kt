@@ -1,8 +1,7 @@
 package com.example.wecanfarm.controller
 
-import com.example.wecanfarm.dto.theme.ThemeCreateDto
+import com.example.wecanfarm.dto.theme.ThemeCreateUpdateDto
 import com.example.wecanfarm.dto.theme.ThemeReadDto
-import com.example.wecanfarm.dto.theme.ThemeUpdateDto
 import com.example.wecanfarm.service.ThemeService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -31,12 +30,12 @@ class ThemeController @Autowired constructor(
     }
 
     @PostMapping
-    fun create(@Valid themeCreateDto: ThemeCreateDto): ResponseEntity<ThemeReadDto> {
-        return ResponseEntity.ok(themeService.create(themeCreateDto))
+    fun create(@Valid themeCreateUpdateDto: ThemeCreateUpdateDto): ResponseEntity<ThemeReadDto> {
+        return ResponseEntity.ok(themeService.create(themeCreateUpdateDto))
     }
 
     @PutMapping("{id}")
-    fun update(@PathVariable id: Long, @Valid themeUpdateDto: ThemeUpdateDto): ResponseEntity<ThemeReadDto> {
-        return ResponseEntity.ok(themeService.update(id, themeUpdateDto))
+    fun update(@PathVariable id: Long, @Valid themeCreateUpdateDto: ThemeCreateUpdateDto): ResponseEntity<ThemeReadDto> {
+        return ResponseEntity.ok(themeService.update(id, themeCreateUpdateDto))
     }
 }

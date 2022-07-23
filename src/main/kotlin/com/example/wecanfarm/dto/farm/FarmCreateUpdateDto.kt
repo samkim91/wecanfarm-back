@@ -1,10 +1,11 @@
 package com.example.wecanfarm.dto.farm
 
+import com.example.wecanfarm.dto.opening_hour.OpeningHourCreateUpdateDto
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
-data class FarmCreateDto(
+data class FarmCreateUpdateDto(
     @field:NotBlank(message = "농장이름은 필수입니다.")
     val name: String,
     @field:NotBlank(message = "주 연락처는 필수입니다.")
@@ -28,5 +29,6 @@ data class FarmCreateDto(
     val isActive: Boolean,
 
     @field:NotEmpty(message = "테마는 필수입니다.")
-    val themes: List<Long>,
+    val themeIds: List<Long>,
+    val openingHours: List<OpeningHourCreateUpdateDto>?
 )

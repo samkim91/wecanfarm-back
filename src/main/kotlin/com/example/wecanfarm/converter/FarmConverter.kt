@@ -1,17 +1,13 @@
 package com.example.wecanfarm.converter
 
-import com.example.wecanfarm.dto.farm.FarmCreateDto
+import com.example.wecanfarm.dto.farm.FarmCreateUpdateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto
-import com.example.wecanfarm.dto.farm.FarmUpdateDto
 import com.example.wecanfarm.entity.Farm
 
 
 fun Farm.toReadDto() =
     FarmReadDto(
         name = name,
-        themes = themes.map { farmTheme ->
-            farmTheme.theme.toReadDto()
-        },
         mainPhone = mainPhone,
         altPhone = altPhone ?: "",
         address = address,
@@ -27,29 +23,35 @@ fun Farm.toReadDto() =
         refundPolicy = refundPolicy ?: "",
         adminNotes = adminNotes ?: "",
         isActive = isActive,
-        id = id ?: 0,
+        themes = themes.map { farmTheme ->
+            farmTheme.theme.toReadDto()
+        },
+        openingHours = openingHours.map { openingHour ->
+            openingHour.toReadDto()
+        },
+        id = id!!,
     )
 
-fun Farm.updateEntity(farmUpdateDto: FarmUpdateDto) {
-    this.name = farmUpdateDto.name
-    this.mainPhone = farmUpdateDto.mainPhone
-    this.altPhone = farmUpdateDto.altPhone
-    this.address = farmUpdateDto.address
-    this.detailAddress = farmUpdateDto.detailAddress
-    this.directions = farmUpdateDto.directions
-    this.email = farmUpdateDto.email
-    this.webUrl = farmUpdateDto.webUrl
-    this.mainSnsUrl = farmUpdateDto.mainSnsUrl
-    this.altSnsUrl = farmUpdateDto.altSnsUrl
-    this.ownerNotes = farmUpdateDto.ownerNotes
-    this.hashTags = farmUpdateDto.hashTags
-    this.isReservationCancelable = farmUpdateDto.isReservationCancelable
-    this.refundPolicy = farmUpdateDto.refundPolicy
-    this.adminNotes = farmUpdateDto.adminNotes
-    this.isActive = farmUpdateDto.isActive
+fun Farm.updateEntity(farmCreateUpdateDto: FarmCreateUpdateDto) {
+    this.name = farmCreateUpdateDto.name
+    this.mainPhone = farmCreateUpdateDto.mainPhone
+    this.altPhone = farmCreateUpdateDto.altPhone
+    this.address = farmCreateUpdateDto.address
+    this.detailAddress = farmCreateUpdateDto.detailAddress
+    this.directions = farmCreateUpdateDto.directions
+    this.email = farmCreateUpdateDto.email
+    this.webUrl = farmCreateUpdateDto.webUrl
+    this.mainSnsUrl = farmCreateUpdateDto.mainSnsUrl
+    this.altSnsUrl = farmCreateUpdateDto.altSnsUrl
+    this.ownerNotes = farmCreateUpdateDto.ownerNotes
+    this.hashTags = farmCreateUpdateDto.hashTags
+    this.isReservationCancelable = farmCreateUpdateDto.isReservationCancelable
+    this.refundPolicy = farmCreateUpdateDto.refundPolicy
+    this.adminNotes = farmCreateUpdateDto.adminNotes
+    this.isActive = farmCreateUpdateDto.isActive
 }
 
-fun FarmCreateDto.toEntity() =
+fun FarmCreateUpdateDto.toEntity() =
     Farm(
         name = name,
         mainPhone = mainPhone,
