@@ -24,6 +24,7 @@ interface FarmRepository : JpaRepository<Farm, Long> {
                 "or f.detailAddress like %:search% " +
                 "or f.directions like %:search% " +
                 "or f.hashTags like %:search% " +
+                "or f.conveniences like %:search% " +
                 "or f.adminNotes like %:search% " +
                 "or t.name like %:search%) "
     )

@@ -1,6 +1,8 @@
 package com.example.wecanfarm.dto.farm
 
 import com.example.wecanfarm.dto.opening_hour.OpeningHourCreateUpdateDto
+import com.example.wecanfarm.dto.pricing.PricingCreateUpdateDto
+import com.example.wecanfarm.entity.Pricing
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
@@ -21,6 +23,7 @@ data class FarmCreateUpdateDto(
     val altSnsUrl: String?,
     val ownerNotes: String?,
     val hashTags: String?,
+    val conveniences: String?,
     @field:NotNull(message = "예약취소 여부는 필수입니다.")
     val isReservationCancelable: Boolean,
     val refundPolicy: String?,
@@ -30,5 +33,6 @@ data class FarmCreateUpdateDto(
 
     @field:NotEmpty(message = "테마는 필수입니다.")
     val themeIds: List<Long>,
-    val openingHours: List<OpeningHourCreateUpdateDto>?
+    val openingHours: List<OpeningHourCreateUpdateDto>?,
+    val pricing: List<PricingCreateUpdateDto>?,
 )

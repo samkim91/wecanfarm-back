@@ -16,6 +16,7 @@ data class FarmReadDto(
     val altSnsUrl: String,
     val ownerNotes: String,
     val hashTags: String,
+    val conveniences: String,
     val isReservationCancelable: Boolean,
     val refundPolicy: String,
     val adminNotes: String,

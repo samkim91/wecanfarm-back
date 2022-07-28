@@ -3,29 +3,25 @@ package com.example.wecanfarm.entity
 import org.hibernate.annotations.DynamicInsert
 import org.hibernate.annotations.DynamicUpdate
 import java.sql.Time
-import java.time.DayOfWeek
 import javax.persistence.*
 
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(
-    name = "opening_hours",
-    uniqueConstraints = [UniqueConstraint(name = "", columnNames = ["farm_id", "dayOfWeek"])]
-)
-class OpeningHour(
+@Table(name = "pricing")
+class Pricing(
     @ManyToOne
     @JoinColumn(name = "farm_id")
     var farm: Farm,
 
-    @Enumerated(EnumType.STRING)
-    var dayOfWeek: DayOfWeek,
+    @Column(nullable = false)
+    var eventName: String,
 
     @Column(nullable = false)
-    var startTime: Time,
+    var cost: Long,
 
     @Column(nullable = false)
-    var endTime: Time,
+    var playtime: Time?,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

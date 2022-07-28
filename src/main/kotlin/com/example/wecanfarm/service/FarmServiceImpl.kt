@@ -19,6 +19,7 @@ class FarmServiceImpl @Autowired constructor(
     val farmRepository: FarmRepository,
     val themeService: ThemeService,
     val openingHourService: OpeningHourService,
+    val pricingService: PricingService,
 ) : BaseService(), FarmService {
 
     override fun getList(search: String?, pageable: Pageable): Page<FarmReadDto> {
@@ -42,6 +43,9 @@ class FarmServiceImpl @Autowired constructor(
         farmCreateUpdateDto.openingHours?.let {
             openingHourService.createOpeningHoursOfFarm(farm, farmCreateUpdateDto.openingHours)
         }
+        farmCreateUpdateDto.pricing?.let {
+            pricingService.createPricingOfFarm(farm, farmCreateUpdateDto.pricing)
+        }
 
         return farm.toReadDto()
     }
@@ -55,6 +59,9 @@ class FarmServiceImpl @Autowired constructor(
         themeService.updateThemesOfFarm(farm, farmCreateUpdateDto.themeIds)
         farmCreateUpdateDto.openingHours?.let {
             openingHourService.updateOpeningHoursOfFarm(farm, farmCreateUpdateDto.openingHours)
+        }
+        farmCreateUpdateDto.pricing?.let {
+            pricingService.updatePricingOfFarm(farm, farmCreateUpdateDto.pricing)
         }
 
         return farm.toReadDto()

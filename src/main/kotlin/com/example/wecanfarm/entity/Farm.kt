@@ -44,6 +44,9 @@ class Farm(
     @Column(length = 2000)
     var hashTags: String?,
 
+    @Column(length = 4000)
+    var conveniences: String?,
+
     var isReservationCancelable: Boolean,
 
     @Column(columnDefinition = "text")
@@ -59,6 +62,9 @@ class Farm(
 
     @OneToMany(mappedBy = "farm")
     var openingHours: MutableList<OpeningHour> = mutableListOf(),
+
+    @OneToMany(mappedBy = "farm")
+    var pricing: MutableList<Pricing> = mutableListOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
