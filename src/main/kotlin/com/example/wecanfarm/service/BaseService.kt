@@ -1,6 +1,6 @@
 package com.example.wecanfarm.service
 
-import com.example.wecanfarm.extension.logger
+import com.example.wecanfarm.util.logger
 import org.springframework.stereotype.Service
 
 @Service

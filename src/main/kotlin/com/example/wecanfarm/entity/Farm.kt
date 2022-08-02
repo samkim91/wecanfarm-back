@@ -66,6 +66,9 @@ class Farm(
     @OneToMany(mappedBy = "farm")
     var pricing: MutableList<Pricing> = mutableListOf(),
 
+    @OneToMany(mappedBy = "farm")
+    var attachments: MutableList<Pricing> = mutableListOf(),
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
