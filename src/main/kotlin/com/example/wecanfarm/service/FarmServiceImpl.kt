@@ -16,10 +16,11 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class FarmServiceImpl @Autowired constructor(
-    val farmRepository: FarmRepository,
-    val themeService: ThemeService,
-    val openingHourService: OpeningHourService,
-    val pricingService: PricingService,
+    private val farmRepository: FarmRepository,
+    private val themeService: ThemeService,
+    private val openingHourService: OpeningHourService,
+    private val pricingService: PricingService,
+    private val farmAttachmentService: FarmAttachmentService,
 ) : BaseService(), FarmService {
 
     override fun getList(search: String?, pageable: Pageable): Page<FarmReadDto> {
@@ -41,10 +42,13 @@ class FarmServiceImpl @Autowired constructor(
 
         themeService.createThemesOfFarm(farm, farmCreateUpdateDto.themeIds)
         farmCreateUpdateDto.openingHours?.let {
-            openingHourService.createOpeningHoursOfFarm(farm, farmCreateUpdateDto.openingHours)
+            openingHourService.createOpeningHoursOfFarm(farm, it)
         }
         farmCreateUpdateDto.pricing?.let {
-            pricingService.createPricingOfFarm(farm, farmCreateUpdateDto.pricing)
+            pricingService.createPricingOfFarm(farm, it)
+        }
+        farmCreateUpdateDto.imageFiles?.let {
+            farmAttachmentService.addAttachments(farm, it)
         }
 
         return farm.toReadDto()
@@ -63,9 +67,13 @@ class FarmServiceImpl @Autowired constructor(
         farmCreateUpdateDto.pricing?.let {
             pricingService.updatePricingOfFarm(farm, farmCreateUpdateDto.pricing)
         }
+        farmCreateUpdateDto.images?.let {
+            farmAttachmentService.updateLeftFiles(farm, it)
+        }
+        farmCreateUpdateDto.imageFiles?.let {
+            farmAttachmentService.addAttachments(farm, it)
+        }
 
         return farm.toReadDto()
     }
-
-
 }

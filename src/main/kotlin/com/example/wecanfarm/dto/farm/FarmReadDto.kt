@@ -1,6 +1,8 @@
 package com.example.wecanfarm.dto.farm
 
+import com.example.wecanfarm.dto.farm_attachment.FarmAttachmentReadDto
 import com.example.wecanfarm.dto.opening_hour.OpeningHourReadDto
+import com.example.wecanfarm.dto.pricing.PricingReadDto
 import com.example.wecanfarm.dto.theme.ThemeReadDto
 
 data class FarmReadDto(
@@ -23,5 +25,7 @@ data class FarmReadDto(
     val isActive: Boolean,
     val themes: List<ThemeReadDto>,
     val openingHours: List<OpeningHourReadDto>,
+    val pricing: List<PricingReadDto>,
+    val images: List<FarmAttachmentReadDto>,
     val id: Long,
 )

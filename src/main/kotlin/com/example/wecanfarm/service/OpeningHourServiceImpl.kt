@@ -3,16 +3,14 @@ package com.example.wecanfarm.service
 import com.example.wecanfarm.converter.toEntity
 import com.example.wecanfarm.dto.opening_hour.OpeningHourCreateUpdateDto
 import com.example.wecanfarm.entity.Farm
-import com.example.wecanfarm.repository.FarmThemeRepository
 import com.example.wecanfarm.repository.OpeningHourRepository
-import com.example.wecanfarm.repository.ThemeRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class OpeningHourServiceImpl @Autowired constructor(
-    val openingHourRepository: OpeningHourRepository,
+    private val openingHourRepository: OpeningHourRepository,
 ) : BaseService(), OpeningHourService {
 
     @Transactional

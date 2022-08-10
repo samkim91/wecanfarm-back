@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class PricingServiceImpl @Autowired constructor(
-    val pricingRepository: PricingRepository,
+    private val pricingRepository: PricingRepository,
 ) : BaseService(), PricingService {
 
     @Transactional

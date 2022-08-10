@@ -23,13 +23,11 @@ class FarmAttachment(
     var type: FileType = FileType.FILE,
 
     @Column(nullable = false)
-    var size: Int = 0,
+    var size: Long = 0,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     var id: Long? = null
 
-) {
-
-}
+)

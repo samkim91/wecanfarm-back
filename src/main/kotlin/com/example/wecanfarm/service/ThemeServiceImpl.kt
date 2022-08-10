@@ -19,8 +19,8 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class ThemeServiceImpl @Autowired constructor(
-    val themeRepository: ThemeRepository,
-    val farmThemeRepository: FarmThemeRepository,
+    private val themeRepository: ThemeRepository,
+    private val farmThemeRepository: FarmThemeRepository,
 ) : BaseService(), ThemeService {
 
     override fun getList(search: String?, pageable: Pageable): Page<ThemeReadDto> {

@@ -30,6 +30,8 @@ fun Farm.toReadDto() =
         openingHours = openingHours.map { openingHour ->
             openingHour.toReadDto()
         },
+        pricing = pricing.map { pricing -> pricing.toReadDto() },
+        images = images.map { image -> image.toReadDto() },
         id = id!!,
     )
 
