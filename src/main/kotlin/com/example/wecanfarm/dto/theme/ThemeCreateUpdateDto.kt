@@ -1,5 +1,7 @@
 package com.example.wecanfarm.dto.theme
 
+import com.example.wecanfarm.dto.theme_attachment.ThemeAttachmentReadDto
+import org.springframework.web.multipart.MultipartFile
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
@@ -14,4 +16,6 @@ data class ThemeCreateUpdateDto(
 
     @field:NotNull(message = "우선순위는 필수입니다.")
     val priority: Int,
+    val image: ThemeAttachmentReadDto?,
+    val imageFile: MultipartFile?,
 )

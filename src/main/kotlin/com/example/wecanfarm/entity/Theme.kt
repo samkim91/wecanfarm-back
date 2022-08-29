@@ -21,6 +21,10 @@ class Theme(
     @OneToMany(mappedBy = "theme")
     var farms: MutableList<FarmTheme>,
 
+    @OneToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "theme_id", referencedColumnName = "id")
+    var image: ThemeAttachment?,
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

@@ -57,16 +57,16 @@ class Farm(
 
     var isActive: Boolean,
 
-    @OneToMany(mappedBy = "farm")
+    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY)
     var themes: MutableList<FarmTheme> = mutableListOf(),
 
-    @OneToMany(mappedBy = "farm")
+    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY)
     var openingHours: MutableList<OpeningHour> = mutableListOf(),
 
-    @OneToMany(mappedBy = "farm")
+    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY)
     var pricing: MutableList<Pricing> = mutableListOf(),
 
-    @OneToMany(mappedBy = "farm")
+    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY)
     var images: MutableList<FarmAttachment> = mutableListOf(),
 
     @Id

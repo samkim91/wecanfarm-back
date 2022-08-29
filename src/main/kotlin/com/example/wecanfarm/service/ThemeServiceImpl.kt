@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException
 class ThemeServiceImpl @Autowired constructor(
     private val themeRepository: ThemeRepository,
     private val farmThemeRepository: FarmThemeRepository,
+    private val themeAttachmentService: ThemeAttachmentService,
 ) : BaseService(), ThemeService {
 
     override fun getList(search: String?, pageable: Pageable): Page<ThemeReadDto> {
@@ -38,14 +39,26 @@ class ThemeServiceImpl @Autowired constructor(
 
     @Transactional
     override fun create(themeCreateUpdateDto: ThemeCreateUpdateDto): ThemeReadDto {
-        return themeRepository.save(themeCreateUpdateDto.toEntity()).toReadDto()
+        if (themeCreateUpdateDto.imageFile == null)
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "테마 이미지는 필수입니다.")
+
+        return themeRepository.save(themeCreateUpdateDto.toEntity()).also { theme ->
+            themeAttachmentService.addAttachment(theme, themeCreateUpdateDto.imageFile)
+        }.toReadDto()
     }
 
     @Transactional
     override fun update(id: Long, themeCreateUpdateDto: ThemeCreateUpdateDto): ThemeReadDto {
         val theme = themeRepository.findById(id)
             .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "해당 테마가 존재하지 않습니다.") }
+
+        if (themeCreateUpdateDto.imageFile == null && themeCreateUpdateDto.image == null)
+            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "테마 이미지는 필수입니다.")
+
         theme.updateEntity(themeCreateUpdateDto = themeCreateUpdateDto)
+        if (themeCreateUpdateDto.imageFile != null)
+            themeAttachmentService.updateAttachment(theme, themeCreateUpdateDto.imageFile)
+
         return theme.toReadDto()
     }
 
