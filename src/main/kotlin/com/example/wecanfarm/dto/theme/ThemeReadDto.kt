@@ -7,5 +7,6 @@ data class ThemeReadDto(
     val name: String,
     val code: String,
     val priority: Int,
-    val image: ThemeAttachmentReadDto,
+    val isActive: Boolean,
+    val themeAttachment: ThemeAttachmentReadDto,
 )

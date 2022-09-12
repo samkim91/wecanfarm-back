@@ -33,7 +33,7 @@ class ThemeAttachmentServiceImpl @Autowired constructor(
 
     @Transactional
     override fun updateAttachment(theme: Theme, file: MultipartFile) {
-        theme.image?.let { removeAttachment(it) }
+        theme.themeAttachment?.let { removeAttachment(it) }
         addAttachment(theme, file)
     }
 

@@ -6,7 +6,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "themes_attachments")
 class ThemeAttachment(
-    @OneToOne(mappedBy = "theme_attachment")
+    @OneToOne(mappedBy = "themeAttachment")
     var theme: Theme,
 
     @Column(nullable = false, length = 40)

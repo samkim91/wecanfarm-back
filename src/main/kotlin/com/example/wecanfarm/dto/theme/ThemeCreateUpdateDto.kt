@@ -16,6 +16,10 @@ data class ThemeCreateUpdateDto(
 
     @field:NotNull(message = "우선순위는 필수입니다.")
     val priority: Int,
-    val image: ThemeAttachmentReadDto?,
-    val imageFile: MultipartFile?,
+
+    @field:NotNull(message = "활성여부는 필수입니다.")
+    val isActive: Boolean,
+
+    val themeAttachment: ThemeAttachmentReadDto?,
+    val themeAttachmentFile: MultipartFile?,
 )

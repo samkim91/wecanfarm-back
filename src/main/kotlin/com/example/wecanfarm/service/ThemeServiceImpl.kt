@@ -39,11 +39,11 @@ class ThemeServiceImpl @Autowired constructor(
 
     @Transactional
     override fun create(themeCreateUpdateDto: ThemeCreateUpdateDto): ThemeReadDto {
-        if (themeCreateUpdateDto.imageFile == null)
+        if (themeCreateUpdateDto.themeAttachmentFile == null)
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "테마 이미지는 필수입니다.")
 
         return themeRepository.save(themeCreateUpdateDto.toEntity()).also { theme ->
-            themeAttachmentService.addAttachment(theme, themeCreateUpdateDto.imageFile)
+            themeAttachmentService.addAttachment(theme, themeCreateUpdateDto.themeAttachmentFile)
         }.toReadDto()
     }
 
@@ -52,12 +52,12 @@ class ThemeServiceImpl @Autowired constructor(
         val theme = themeRepository.findById(id)
             .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "해당 테마가 존재하지 않습니다.") }
 
-        if (themeCreateUpdateDto.imageFile == null && themeCreateUpdateDto.image == null)
+        if (themeCreateUpdateDto.themeAttachmentFile == null && themeCreateUpdateDto.themeAttachment == null)
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "테마 이미지는 필수입니다.")
 
         theme.updateEntity(themeCreateUpdateDto = themeCreateUpdateDto)
-        if (themeCreateUpdateDto.imageFile != null)
-            themeAttachmentService.updateAttachment(theme, themeCreateUpdateDto.imageFile)
+        if (themeCreateUpdateDto.themeAttachmentFile != null)
+            themeAttachmentService.updateAttachment(theme, themeCreateUpdateDto.themeAttachmentFile)
 
         return theme.toReadDto()
     }

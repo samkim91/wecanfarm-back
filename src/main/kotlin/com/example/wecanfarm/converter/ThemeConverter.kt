@@ -11,13 +11,15 @@ fun Theme.toReadDto() =
         name = name,
         code = code,
         priority = priority,
-        image = image!!.toReadDto(),
+        isActive = isActive,
+        themeAttachment = themeAttachment!!.toReadDto(),
     )
 
 fun Theme.updateEntity(themeCreateUpdateDto: ThemeCreateUpdateDto) {
     name = themeCreateUpdateDto.name
     code = themeCreateUpdateDto.code
     priority = themeCreateUpdateDto.priority
+    isActive = themeCreateUpdateDto.isActive
 }
 
 fun ThemeCreateUpdateDto.toEntity() =
@@ -25,7 +27,8 @@ fun ThemeCreateUpdateDto.toEntity() =
         name = name,
         code = code,
         priority = priority,
+        isActive = isActive,
         farms = mutableListOf(),
-        image = null,
+        themeAttachment = null,
     )
 
