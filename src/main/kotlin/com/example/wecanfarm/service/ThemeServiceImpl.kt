@@ -43,7 +43,7 @@ class ThemeServiceImpl @Autowired constructor(
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "테마 이미지는 필수입니다.")
 
         return themeRepository.save(themeCreateUpdateDto.toEntity()).also { theme ->
-            themeAttachmentService.addAttachment(theme, themeCreateUpdateDto.themeAttachmentFile)
+            theme.themeAttachment = themeAttachmentService.addAttachment(theme, themeCreateUpdateDto.themeAttachmentFile)
         }.toReadDto()
     }
 
@@ -57,7 +57,7 @@ class ThemeServiceImpl @Autowired constructor(
 
         theme.updateEntity(themeCreateUpdateDto = themeCreateUpdateDto)
         if (themeCreateUpdateDto.themeAttachmentFile != null)
-            themeAttachmentService.updateAttachment(theme, themeCreateUpdateDto.themeAttachmentFile)
+            theme.themeAttachment = themeAttachmentService.updateAttachment(theme, themeCreateUpdateDto.themeAttachmentFile)
 
         return theme.toReadDto()
     }

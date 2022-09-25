@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile
 interface ThemeAttachmentService {
 
 
-    fun addAttachment(theme: Theme, file: MultipartFile)
-    fun updateAttachment(theme: Theme, file: MultipartFile)
+    fun addAttachment(theme: Theme, file: MultipartFile) : ThemeAttachment
+    fun updateAttachment(theme: Theme, file: MultipartFile) : ThemeAttachment
     fun removeAttachment(attachment: ThemeAttachment)
 }

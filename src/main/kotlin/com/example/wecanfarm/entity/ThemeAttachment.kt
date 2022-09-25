@@ -19,6 +19,7 @@ class ThemeAttachment(
     var name: String,
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     var type: FileType = FileType.FILE,
 
     @Column(nullable = false)

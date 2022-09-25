@@ -30,6 +30,7 @@ class S3ServiceImpl @Autowired constructor(
 
         val bytes = IOUtils.toByteArray(file.inputStream)
         objectMeta.contentLength = bytes.size.toLong()
+        objectMeta.contentType = file.contentType
 
         val byteArrayInputStream = ByteArrayInputStream(bytes)
 

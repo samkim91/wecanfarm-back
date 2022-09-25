@@ -16,14 +16,14 @@ class ThemeAttachmentServiceImpl @Autowired constructor(
 ) : BaseService(), ThemeAttachmentService {
 
     @Transactional
-    override fun addAttachment(theme: Theme, file: MultipartFile) {
+    override fun addAttachment(theme: Theme, file: MultipartFile) : ThemeAttachment {
         s3Service.uploadFile(file).let { (url, fileName) ->
-            themeAttachmentRepository.save(
+            return themeAttachmentRepository.save(
                 ThemeAttachment(
                     theme = theme,
                     s3FileName = fileName,
                     url = url,
-                    name = file.name,
+                    name = file.originalFilename ?: file.name,
                     type = if (file.contentType?.contains("image") == true) FileType.IMAGE else FileType.FILE,
                     size = file.size
                 )
@@ -32,9 +32,9 @@ class ThemeAttachmentServiceImpl @Autowired constructor(
     }
 
     @Transactional
-    override fun updateAttachment(theme: Theme, file: MultipartFile) {
+    override fun updateAttachment(theme: Theme, file: MultipartFile) : ThemeAttachment {
         theme.themeAttachment?.let { removeAttachment(it) }
-        addAttachment(theme, file)
+        return addAttachment(theme, file)
     }
 
     @Transactional
