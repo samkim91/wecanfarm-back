@@ -30,6 +30,9 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // AWS
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 }
 
 allOpen {

@@ -1,4 +1,4 @@
-package com.example.wecanfarm.extension
+package com.example.wecanfarm.util
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

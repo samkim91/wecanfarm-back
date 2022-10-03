@@ -1,12 +1,11 @@
 package com.example.wecanfarm.controller
 
-import com.example.wecanfarm.dto.farm.FarmCreateDto
+import com.example.wecanfarm.dto.farm.FarmCreateUpdateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto
-import com.example.wecanfarm.converter.farm.toEntity
-import com.example.wecanfarm.converter.farm.toReadDto
-import com.example.wecanfarm.dto.farm.FarmUpdateDto
 import com.example.wecanfarm.service.FarmService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -18,19 +17,24 @@ class FarmController @Autowired constructor(
 ) : BaseController() {
 
 
-    @GetMapping("/{id}")
-    fun getFarm(@PathVariable id: Long): ResponseEntity<FarmReadDto> {
-        return ResponseEntity.ok(farmService.findById(id))
+    @GetMapping
+    fun getList(search: String?, pageable: Pageable): ResponseEntity<Page<FarmReadDto>> {
+        return ResponseEntity.ok(farmService.getList(search, pageable))
     }
 
-    @PostMapping()
-    fun createFarm(@Valid farmCreateDto: FarmCreateDto): ResponseEntity<FarmReadDto> {
-        return ResponseEntity.ok(farmService.insertFarm(farmCreateDto))
+    @GetMapping("/{id}")
+    fun getFarm(@PathVariable id: Long): ResponseEntity<FarmReadDto> {
+        return ResponseEntity.ok(farmService.get(id))
+    }
+
+    @PostMapping
+    fun createFarm(@RequestBody @Valid farmCreateUpdateDto: FarmCreateUpdateDto): ResponseEntity<FarmReadDto> {
+        return ResponseEntity.ok(farmService.create(farmCreateUpdateDto))
     }
 
     @PostMapping("{id}")
-    fun updateFarm(@PathVariable id: Long, @Valid farmUpdateDto: FarmUpdateDto): ResponseEntity<FarmReadDto> {
-        return ResponseEntity.ok(farmService.updateFarm(id, farmUpdateDto))
+    fun updateFarm(@PathVariable id: Long, @RequestBody @Valid farmCreateUpdateDto: FarmCreateUpdateDto): ResponseEntity<FarmReadDto> {
+        return ResponseEntity.ok(farmService.update(id, farmCreateUpdateDto))
     }
 }
 

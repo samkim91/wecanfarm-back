@@ -1,13 +1,14 @@
 package com.example.wecanfarm.service
 
-import com.example.wecanfarm.converter.farm.toEntity
-import com.example.wecanfarm.converter.farm.toReadDto
-import com.example.wecanfarm.converter.farm.updateEntity
-import com.example.wecanfarm.dto.farm.FarmCreateDto
+import com.example.wecanfarm.converter.toEntity
+import com.example.wecanfarm.converter.toReadDto
+import com.example.wecanfarm.converter.updateEntity
+import com.example.wecanfarm.dto.farm.FarmCreateUpdateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto
-import com.example.wecanfarm.dto.farm.FarmUpdateDto
 import com.example.wecanfarm.repository.FarmRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -15,28 +16,64 @@ import org.springframework.web.server.ResponseStatusException
 
 @Service
 class FarmServiceImpl @Autowired constructor(
-    val farmRepository: FarmRepository
+    private val farmRepository: FarmRepository,
+    private val themeService: ThemeService,
+    private val openingHourService: OpeningHourService,
+    private val pricingService: PricingService,
+    private val farmAttachmentService: FarmAttachmentService,
 ) : BaseService(), FarmService {
 
-    override fun findById(id: Long): FarmReadDto {
+    override fun getList(search: String?, pageable: Pageable): Page<FarmReadDto> {
+        return if (search == null) {
+            farmRepository.findAll(pageable)
+        } else {
+            farmRepository.findAllBySearchAndFilters(search, pageable)
+        }.map { farm -> farm.toReadDto() }
+    }
+
+    override fun get(id: Long): FarmReadDto {
         return farmRepository.findById(id)
             .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "해당 농장이 존재하지 않습니다.") }.toReadDto()
     }
 
     @Transactional
-    override fun insertFarm(farmCreateDto: FarmCreateDto): FarmReadDto {
-        return farmRepository.save(farmCreateDto.toEntity()).toReadDto()
-    }
+    override fun create(farmCreateUpdateDto: FarmCreateUpdateDto): FarmReadDto {
+        val farm = farmRepository.save(farmCreateUpdateDto.toEntity())
 
-    @Transactional
-    override fun updateFarm(id: Long, farmUpdateDto: FarmUpdateDto): FarmReadDto {
-        val farm = farmRepository.findById(id)
-            .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "해당 농장이 존재하지 않습니다.") }
-
-        farm.updateEntity(farmUpdateDto = farmUpdateDto)
+        themeService.createThemesOfFarm(farm, farmCreateUpdateDto.themeIds)
+        farmCreateUpdateDto.openingHours?.let {
+            openingHourService.createOpeningHoursOfFarm(farm, it)
+        }
+        farmCreateUpdateDto.pricing?.let {
+            pricingService.createPricingOfFarm(farm, it)
+        }
+        farmCreateUpdateDto.imageFiles?.let {
+            farmAttachmentService.addAttachments(farm, it)
+        }
 
         return farm.toReadDto()
     }
 
+    @Transactional
+    override fun update(id: Long, farmCreateUpdateDto: FarmCreateUpdateDto): FarmReadDto {
+        val farm = farmRepository.findById(id)
+            .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "해당 농장이 존재하지 않습니다.") }
 
+        farm.updateEntity(farmCreateUpdateDto = farmCreateUpdateDto)
+        themeService.updateThemesOfFarm(farm, farmCreateUpdateDto.themeIds)
+        farmCreateUpdateDto.openingHours?.let {
+            openingHourService.updateOpeningHoursOfFarm(farm, farmCreateUpdateDto.openingHours)
+        }
+        farmCreateUpdateDto.pricing?.let {
+            pricingService.updatePricingOfFarm(farm, farmCreateUpdateDto.pricing)
+        }
+        farmCreateUpdateDto.images?.let {
+            farmAttachmentService.updateLeftFiles(farm, it)
+        }
+        farmCreateUpdateDto.imageFiles?.let {
+            farmAttachmentService.addAttachments(farm, it)
+        }
+
+        return farm.toReadDto()
+    }
 }
