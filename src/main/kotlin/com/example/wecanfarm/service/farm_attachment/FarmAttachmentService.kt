@@ -1,4 +1,4 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.farm_attachment
 
 import com.example.wecanfarm.dto.farm_attachment.FarmAttachmentReadDto
 import com.example.wecanfarm.entity.Farm

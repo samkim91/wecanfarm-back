@@ -1,4 +1,4 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.option
 
 import com.example.wecanfarm.enums.SnsType
 

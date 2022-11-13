@@ -4,6 +4,7 @@ import com.example.wecanfarm.dto.farm_attachment.FarmAttachmentReadDto
 import com.example.wecanfarm.dto.opening_hour.OpeningHourReadDto
 import com.example.wecanfarm.dto.pricing.PricingReadDto
 import com.example.wecanfarm.dto.theme.ThemeReadDto
+import com.example.wecanfarm.dto.url.UrlReadDto
 
 data class FarmReadDto(
     val name: String,
@@ -13,9 +14,6 @@ data class FarmReadDto(
     val detailAddress: String,
     val directions: String,
     val email: String,
-    val webUrl: String,
-    val mainSnsUrl: String,
-    val altSnsUrl: String,
     val ownerNotes: String,
     val hashTags: String,
     val conveniences: String,
@@ -27,5 +25,6 @@ data class FarmReadDto(
     val openingHours: List<OpeningHourReadDto>,
     val pricing: List<PricingReadDto>,
     val images: List<FarmAttachmentReadDto>,
+    val urls: List<UrlReadDto>,
     val id: Long,
 )

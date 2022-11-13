@@ -1,9 +1,10 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.pricing
 
 import com.example.wecanfarm.converter.toEntity
 import com.example.wecanfarm.dto.pricing.PricingCreateUpdateDto
 import com.example.wecanfarm.entity.Farm
 import com.example.wecanfarm.repository.PricingRepository
+import com.example.wecanfarm.service.BaseService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -26,6 +27,7 @@ class PricingServiceImpl @Autowired constructor(
         pricingRepository.deleteAll(farm.pricing)
         farm.pricing.clear()
 
+        pricingRepository.flush()
         createPricingOfFarm(farm, pricing)
     }
 

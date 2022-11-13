@@ -1,4 +1,4 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.farm_attachment
 
 import com.example.wecanfarm.converter.toReadDto
 import com.example.wecanfarm.dto.farm_attachment.FarmAttachmentReadDto
@@ -6,6 +6,8 @@ import com.example.wecanfarm.entity.Farm
 import com.example.wecanfarm.entity.FarmAttachment
 import com.example.wecanfarm.enums.FileType
 import com.example.wecanfarm.repository.FarmAttachmentRepository
+import com.example.wecanfarm.service.BaseService
+import com.example.wecanfarm.service.s3.S3Service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

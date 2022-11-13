@@ -1,4 +1,4 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.theme
 
 import com.example.wecanfarm.converter.toEntity
 import com.example.wecanfarm.converter.toReadDto
@@ -9,6 +9,8 @@ import com.example.wecanfarm.entity.Farm
 import com.example.wecanfarm.entity.FarmTheme
 import com.example.wecanfarm.repository.FarmThemeRepository
 import com.example.wecanfarm.repository.ThemeRepository
+import com.example.wecanfarm.service.BaseService
+import com.example.wecanfarm.service.theme_attachment.ThemeAttachmentService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

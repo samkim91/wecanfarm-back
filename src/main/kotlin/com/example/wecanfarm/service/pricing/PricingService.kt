@@ -1,4 +1,4 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.pricing
 
 import com.example.wecanfarm.dto.pricing.PricingCreateUpdateDto
 import com.example.wecanfarm.entity.Farm
