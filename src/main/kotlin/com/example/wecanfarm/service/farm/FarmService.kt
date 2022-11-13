@@ -1,4 +1,4 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.farm
 
 import com.example.wecanfarm.dto.farm.FarmCreateUpdateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto

@@ -3,6 +3,7 @@ package com.example.wecanfarm.dto.farm
 import com.example.wecanfarm.dto.farm_attachment.FarmAttachmentReadDto
 import com.example.wecanfarm.dto.opening_hour.OpeningHourCreateUpdateDto
 import com.example.wecanfarm.dto.pricing.PricingCreateUpdateDto
+import com.example.wecanfarm.dto.url.UrlCreateUpdateDto
 import org.springframework.web.multipart.MultipartFile
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotEmpty
@@ -19,9 +20,6 @@ data class FarmCreateUpdateDto(
     val detailAddress: String?,
     val directions: String?,
     val email: String?,
-    val webUrl: String?,
-    val mainSnsUrl: String?,
-    val altSnsUrl: String?,
     val ownerNotes: String?,
     val hashTags: String?,
     val conveniences: String?,
@@ -36,6 +34,8 @@ data class FarmCreateUpdateDto(
     val themeIds: List<Long>,
     val openingHours: List<OpeningHourCreateUpdateDto>?,
     val pricing: List<PricingCreateUpdateDto>?,
+    val urls: List<UrlCreateUpdateDto>?,
+
     val images: List<FarmAttachmentReadDto>?,
     val imageFiles: List<MultipartFile>?,
 )

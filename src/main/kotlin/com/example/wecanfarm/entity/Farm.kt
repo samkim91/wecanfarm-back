@@ -29,15 +29,6 @@ class Farm(
 
     var email: String?,
 
-    @Column(length = 2100)
-    var webUrl: String?,
-
-    @Column(length = 2100)
-    var mainSnsUrl: String?,
-
-    @Column(length = 2100)
-    var altSnsUrl: String?,
-
     @Column(columnDefinition = "text")
     var ownerNotes: String?,
 
@@ -57,17 +48,20 @@ class Farm(
 
     var isActive: Boolean,
 
-    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var themes: MutableList<FarmTheme> = mutableListOf(),
 
-    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var openingHours: MutableList<OpeningHour> = mutableListOf(),
 
-    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var pricing: MutableList<Pricing> = mutableListOf(),
 
-    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     var images: MutableList<FarmAttachment> = mutableListOf(),
+
+    @OneToMany(mappedBy = "farm", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    var urls: MutableList<Url> = mutableListOf(),
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

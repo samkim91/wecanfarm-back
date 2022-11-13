@@ -1,4 +1,4 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.theme
 
 import com.example.wecanfarm.dto.theme.ThemeCreateUpdateDto
 import com.example.wecanfarm.dto.theme.ThemeReadDto

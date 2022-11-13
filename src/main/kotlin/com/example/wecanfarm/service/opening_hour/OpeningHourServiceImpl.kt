@@ -1,9 +1,10 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.opening_hour
 
 import com.example.wecanfarm.converter.toEntity
 import com.example.wecanfarm.dto.opening_hour.OpeningHourCreateUpdateDto
 import com.example.wecanfarm.entity.Farm
 import com.example.wecanfarm.repository.OpeningHourRepository
+import com.example.wecanfarm.service.BaseService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -26,6 +27,7 @@ class OpeningHourServiceImpl @Autowired constructor(
         openingHourRepository.deleteAll(farm.openingHours)
         farm.openingHours.clear()
 
+        openingHourRepository.flush()
         createOpeningHoursOfFarm(farm, openingHours)
     }
 

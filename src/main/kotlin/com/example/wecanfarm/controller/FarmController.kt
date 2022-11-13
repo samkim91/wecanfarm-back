@@ -2,7 +2,7 @@ package com.example.wecanfarm.controller
 
 import com.example.wecanfarm.dto.farm.FarmCreateUpdateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto
-import com.example.wecanfarm.service.FarmService
+import com.example.wecanfarm.service.farm.FarmService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

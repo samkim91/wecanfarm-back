@@ -2,7 +2,7 @@ package com.example.wecanfarm.controller
 
 import com.example.wecanfarm.dto.theme.ThemeCreateUpdateDto
 import com.example.wecanfarm.dto.theme.ThemeReadDto
-import com.example.wecanfarm.service.ThemeService
+import com.example.wecanfarm.service.theme.ThemeService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

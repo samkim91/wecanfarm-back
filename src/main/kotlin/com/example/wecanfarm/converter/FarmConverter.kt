@@ -14,9 +14,6 @@ fun Farm.toReadDto() =
         detailAddress = detailAddress ?: "",
         directions = directions ?: "",
         email = email ?: "",
-        webUrl = webUrl ?: "",
-        mainSnsUrl = mainSnsUrl ?: "",
-        altSnsUrl = altSnsUrl ?: "",
         ownerNotes = ownerNotes ?: "",
         hashTags = hashTags ?: "",
         conveniences = conveniences ?: "",
@@ -32,6 +29,7 @@ fun Farm.toReadDto() =
         },
         pricing = pricing.map { pricing -> pricing.toReadDto() },
         images = images.map { image -> image.toReadDto() },
+        urls = urls.map { url -> url.toReadDto() },
         id = id!!,
     )
 
@@ -43,9 +41,6 @@ fun Farm.updateEntity(farmCreateUpdateDto: FarmCreateUpdateDto) {
     this.detailAddress = farmCreateUpdateDto.detailAddress
     this.directions = farmCreateUpdateDto.directions
     this.email = farmCreateUpdateDto.email
-    this.webUrl = farmCreateUpdateDto.webUrl
-    this.mainSnsUrl = farmCreateUpdateDto.mainSnsUrl
-    this.altSnsUrl = farmCreateUpdateDto.altSnsUrl
     this.ownerNotes = farmCreateUpdateDto.ownerNotes
     this.hashTags = farmCreateUpdateDto.hashTags
     this.conveniences = farmCreateUpdateDto.conveniences
@@ -64,9 +59,6 @@ fun FarmCreateUpdateDto.toEntity() =
         detailAddress = detailAddress,
         directions = directions,
         email = email,
-        webUrl = webUrl,
-        mainSnsUrl = mainSnsUrl,
-        altSnsUrl = altSnsUrl,
         ownerNotes = ownerNotes,
         hashTags = hashTags,
         conveniences = conveniences,

@@ -1,4 +1,4 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.s3
 
 import org.springframework.web.multipart.MultipartFile
 

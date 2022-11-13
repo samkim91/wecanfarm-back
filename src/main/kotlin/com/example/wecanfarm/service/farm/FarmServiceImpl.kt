@@ -1,4 +1,4 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.farm
 
 import com.example.wecanfarm.converter.toEntity
 import com.example.wecanfarm.converter.toReadDto
@@ -6,6 +6,12 @@ import com.example.wecanfarm.converter.updateEntity
 import com.example.wecanfarm.dto.farm.FarmCreateUpdateDto
 import com.example.wecanfarm.dto.farm.FarmReadDto
 import com.example.wecanfarm.repository.FarmRepository
+import com.example.wecanfarm.service.*
+import com.example.wecanfarm.service.farm_attachment.FarmAttachmentService
+import com.example.wecanfarm.service.opening_hour.OpeningHourService
+import com.example.wecanfarm.service.pricing.PricingService
+import com.example.wecanfarm.service.theme.ThemeService
+import com.example.wecanfarm.service.url.UrlService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -21,6 +27,7 @@ class FarmServiceImpl @Autowired constructor(
     private val openingHourService: OpeningHourService,
     private val pricingService: PricingService,
     private val farmAttachmentService: FarmAttachmentService,
+    private val urlService: UrlService,
 ) : BaseService(), FarmService {
 
     override fun getList(search: String?, pageable: Pageable): Page<FarmReadDto> {
@@ -50,6 +57,9 @@ class FarmServiceImpl @Autowired constructor(
         farmCreateUpdateDto.imageFiles?.let {
             farmAttachmentService.addAttachments(farm, it)
         }
+        farmCreateUpdateDto.urls?.let {
+            urlService.createUrls(farm, it)
+        }
 
         return farm.toReadDto()
     }
@@ -72,6 +82,9 @@ class FarmServiceImpl @Autowired constructor(
         }
         farmCreateUpdateDto.imageFiles?.let {
             farmAttachmentService.addAttachments(farm, it)
+        }
+        farmCreateUpdateDto.urls?.let {
+            urlService.updateUrls(farm, it)
         }
 
         return farm.toReadDto()

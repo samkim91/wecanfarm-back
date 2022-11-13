@@ -1,9 +1,11 @@
-package com.example.wecanfarm.service
+package com.example.wecanfarm.service.theme_attachment
 
 import com.example.wecanfarm.entity.Theme
 import com.example.wecanfarm.entity.ThemeAttachment
 import com.example.wecanfarm.enums.FileType
 import com.example.wecanfarm.repository.ThemeAttachmentRepository
+import com.example.wecanfarm.service.BaseService
+import com.example.wecanfarm.service.s3.S3Service
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
