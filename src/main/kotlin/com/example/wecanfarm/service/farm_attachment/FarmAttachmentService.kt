@@ -11,6 +11,6 @@ interface FarmAttachmentService {
     fun addAttachment(farm: Farm, file: MultipartFile)
     fun addAttachments(farm: Farm, files: List<MultipartFile>)
     fun updateLeftFiles(farm: Farm, leftFiles: List<FarmAttachmentReadDto>)
-    fun removeAttachment(attachment: FarmAttachment)
-    fun removeAttachments(attachments: List<FarmAttachment>)
+    fun removeAttachment(attachmentReadDto: FarmAttachmentReadDto)
+    fun removeAttachments(attachmentReadDtos: List<FarmAttachmentReadDto>)
 }

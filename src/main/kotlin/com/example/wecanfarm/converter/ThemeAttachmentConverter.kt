@@ -6,6 +6,7 @@ import com.example.wecanfarm.entity.ThemeAttachment
 
 fun ThemeAttachment.toReadDto() =
     ThemeAttachmentReadDto(
+        s3FileName = s3FileName,
         url = url,
         name = name,
         type = type,

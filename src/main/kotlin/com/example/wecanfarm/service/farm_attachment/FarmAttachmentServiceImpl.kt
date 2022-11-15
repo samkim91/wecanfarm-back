@@ -27,11 +27,13 @@ class FarmAttachmentServiceImpl @Autowired constructor(
                     farm = farm,
                     s3FileName = fileName,
                     url = url,
-                    name = file.name,
+                    name = file.originalFilename ?: fileName,
                     type = if (file.contentType?.contains("image") == true) FileType.IMAGE else FileType.FILE,
                     size = file.size
                 )
-            )
+            ).also { farmAttachment ->
+                farm.images.add(farmAttachment)
+            }
         }
     }
 
@@ -44,24 +46,33 @@ class FarmAttachmentServiceImpl @Autowired constructor(
 
     @Transactional
     override fun updateLeftFiles(farm: Farm, leftFiles: List<FarmAttachmentReadDto>) {
+        // TODO: 이미지 업데이트가 제대로 되지 않는 문제 수정 필요!!!
+        // https://stackoverflow.com/questions/56559751/how-to-filter-two-lists-in-kotlin
+        // 리스트 아이디 필터 기능으로 남겨지는 파일목록을 엔터티에서 남기고 나머지는 제외한다.
+        // 위 방법도 안됨 ... 더 연구 필요..
+
         farm.images.map { image -> image.toReadDto() }.let { originalImages ->
-            originalImages.minus(leftFiles.toSet()).let { deletedImages ->
-                deletedImages.map { deletedImage -> deletedImage.name }.let { deletedImageNames ->
-                    s3Service.deleteFiles(deletedImageNames)
-                }
-            }
+            s3Service.deleteFiles(originalImages.minus(leftFiles.toSet()).map {farmAttachmentReadDto -> farmAttachmentReadDto.s3FileName })
+        }
+
+        farm.images.filter { image -> image.id in leftFiles.map { it.id } }.let {
+            farm.images.clear()
+            farm.images.addAll(it)
+
+            farmAttachmentRepository.flush()
         }
     }
 
     @Transactional
-    override fun removeAttachment(attachment: FarmAttachment) {
-        s3Service.deleteFile(attachment.s3FileName)
-        farmAttachmentRepository.delete(attachment)
+    override fun removeAttachment(attachmentReadDto: FarmAttachmentReadDto) {
+        s3Service.deleteFile(attachmentReadDto.s3FileName)
+        farmAttachmentRepository.deleteById(attachmentReadDto.id)
     }
 
     @Transactional
-    override fun removeAttachments(attachments: List<FarmAttachment>) {
-        s3Service.deleteFiles(attachments.map { attachment -> attachment.s3FileName })
-        farmAttachmentRepository.deleteAll(attachments)
+    override fun removeAttachments(attachmentReadDtos: List<FarmAttachmentReadDto>) {
+        s3Service.deleteFiles(attachmentReadDtos.map { attachment -> attachment.s3FileName })
+        farmAttachmentRepository.deleteAllById(attachmentReadDtos.map { it.id })
+
     }
 }

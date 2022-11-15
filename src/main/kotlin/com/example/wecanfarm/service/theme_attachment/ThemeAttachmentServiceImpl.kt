@@ -25,7 +25,7 @@ class ThemeAttachmentServiceImpl @Autowired constructor(
                     theme = theme,
                     s3FileName = fileName,
                     url = url,
-                    name = file.originalFilename ?: file.name,
+                    name = file.originalFilename ?: fileName,
                     type = if (file.contentType?.contains("image") == true) FileType.IMAGE else FileType.FILE,
                     size = file.size
                 )

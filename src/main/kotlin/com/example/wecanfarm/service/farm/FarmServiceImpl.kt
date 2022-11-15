@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.server.ResponseStatusException
 
 @Service
@@ -44,7 +45,7 @@ class FarmServiceImpl @Autowired constructor(
     }
 
     @Transactional
-    override fun create(farmCreateUpdateDto: FarmCreateUpdateDto): FarmReadDto {
+    override fun create(farmCreateUpdateDto: FarmCreateUpdateDto, imageFiles: List<MultipartFile>?): FarmReadDto {
         val farm = farmRepository.save(farmCreateUpdateDto.toEntity())
 
         themeService.createThemesOfFarm(farm, farmCreateUpdateDto.themeIds)
@@ -54,7 +55,7 @@ class FarmServiceImpl @Autowired constructor(
         farmCreateUpdateDto.pricing?.let {
             pricingService.createPricingOfFarm(farm, it)
         }
-        farmCreateUpdateDto.imageFiles?.let {
+        imageFiles?.let {
             farmAttachmentService.addAttachments(farm, it)
         }
         farmCreateUpdateDto.urls?.let {
@@ -65,7 +66,11 @@ class FarmServiceImpl @Autowired constructor(
     }
 
     @Transactional
-    override fun update(id: Long, farmCreateUpdateDto: FarmCreateUpdateDto): FarmReadDto {
+    override fun update(
+        id: Long,
+        farmCreateUpdateDto: FarmCreateUpdateDto,
+        imageFiles: List<MultipartFile>?
+    ): FarmReadDto {
         val farm = farmRepository.findById(id)
             .orElseThrow { throw ResponseStatusException(HttpStatus.NOT_FOUND, "해당 농장이 존재하지 않습니다.") }
 
@@ -80,7 +85,7 @@ class FarmServiceImpl @Autowired constructor(
         farmCreateUpdateDto.images?.let {
             farmAttachmentService.updateLeftFiles(farm, it)
         }
-        farmCreateUpdateDto.imageFiles?.let {
+        imageFiles?.let {
             farmAttachmentService.addAttachments(farm, it)
         }
         farmCreateUpdateDto.urls?.let {
